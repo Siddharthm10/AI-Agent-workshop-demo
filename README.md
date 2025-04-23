@@ -29,6 +29,6 @@ pip install python-dotenv langchain langchain-huggingface huggingface_hub transf
 ### Tokens
 - Create a .env file in the src folder
 ```
-HF_API_TOKEN=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
-HF_ENDPOINT_URL=https://i9itfkpeudassa0q.us-east-1.aws.endpoints.huggingface.cloud
+HF_API_TOKEN=<Your token here>
+HF_ENDPOINT_URL=<Your endpoint url here>
 ```
