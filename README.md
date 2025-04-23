@@ -19,3 +19,9 @@ pip install -r requirements.txt
 cd src
 streamlit run streamlit_app.py
 ```
+
+
+If for some reason the above snippets don't work, use the following:
+```bash 
+pip install python-dotenv langchain langchain-huggingface huggingface_hub transformers pandas openpyxl
+```
