@@ -25,3 +25,10 @@ If for some reason the above snippets don't work, use the following:
 ```bash 
 pip install python-dotenv langchain langchain-huggingface huggingface_hub transformers pandas openpyxl
 ```
+
+### Tokens
+- Create a .env file in the src folder
+```
+HF_API_TOKEN=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
+HF_ENDPOINT_URL=https://i9itfkpeudassa0q.us-east-1.aws.endpoints.huggingface.cloud
+```
