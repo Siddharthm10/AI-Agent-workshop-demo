@@ -7,6 +7,7 @@ Supported actions:
 - Remove a task by ID
 - Prioritize tasks (sorted by deadline)
 - Summarize tasks (grouped by status)
+- Clear tasks (clear the task list)
 
 Each task has the following fields:
 - id (auto-generated if not given)

@@ -1,48 +1,38 @@
 import streamlit as st
 from agent import run_agent
 from tools import load_tasks
+import os
 
+os.environ["STREAMLIT_WATCHER_TYPE"] = "none"
 st.set_page_config(page_title="🧠 Productivity Task Agent", layout="centered")
 
 st.title("🧠 Productivity Task Agent")
+st.markdown("Easily manage and track your tasks with AI assistance.")
 
-# Add a reset button
-if st.sidebar.button("Reset Conversation"):
-    st.session_state.messages = []
-    st.rerun()
+# Initialize query history
+if "user_queries" not in st.session_state:
+    st.session_state.user_queries = []
 
-# Initialize chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# Input box for task commands
+user_input = st.text_input("Enter your task command")
 
-# Display chat history
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# Input box
-user_input = st.chat_input("Enter your task command")
-
-if user_input:
-    # Display user message
-    st.chat_message("user").markdown(user_input)
-    st.session_state.messages.append({"role": "user", "content": user_input})
+if st.button("Submit") and user_input.strip() != "":
+    # Store the query
+    st.session_state.user_queries.insert(0, user_input.strip())
+    st.session_state.user_queries = st.session_state.user_queries[:5]  # Keep only last 5
     
-    # Get response
-    with st.spinner("Thinking..."):
-        try:
-            response = run_agent(user_input)
-            assistant_reply = response['output']
-            
-            # Display assistant response
-            st.chat_message("assistant").markdown(assistant_reply)
-            st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
-        except Exception as e:
-            error_message = f"Error: {str(e)}"
-            st.chat_message("assistant").markdown(error_message)
-            st.session_state.messages.append({"role": "assistant", "content": error_message})
+    # Call the agent
+    with st.spinner("Processing your request..."):
+        response = run_agent(user_input.strip())
+        st.success("Processed successfully!")
 
-# Divider
+# Display last 5 queries
+if st.session_state.user_queries:
+    st.markdown("### 🕓 Last 5 Queries")
+    for idx, q in enumerate(st.session_state.user_queries, start=1):
+        st.markdown(f"**{idx}.** {q}")
+
+# Divider and task table
 st.markdown("---")
 st.subheader("📋 Current Tasks")
 

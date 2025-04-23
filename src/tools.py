@@ -114,6 +114,17 @@ def prioritize_tasks() -> str:
     return "Prioritized tasks:\n" + "\n".join([f"ID: {t[0]}, Title: {t[1]}, Deadline: {t[2]}" for t in tasks])
 
 @tool
+def clear_tasks() -> str:
+    """Clear all the tasks in the list.
+    
+    Returns:
+        Nothing
+    """
+    df = load_tasks()
+    df = df[0:0]
+    save_tasks(df)
+
+@tool
 def summarize_tasks() -> str:
     """Summarize the number of tasks per status.
     
@@ -125,4 +136,4 @@ def summarize_tasks() -> str:
     return "Task Summary:\n" + "\n".join([f"{k}: {v}" for k, v in counts.items()])
 
 # Define Tools
-TOOLS = [add_task, remove_task, update_task, prioritize_tasks, summarize_tasks]
+TOOLS = [add_task, remove_task, update_task, prioritize_tasks, summarize_tasks, clear_tasks]
